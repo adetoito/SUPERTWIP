@@ -15,22 +15,25 @@ public class Main {
             if (index != 0) {
                 String line = fileReader.nextLine();
                 String [] divisions = line.split("\t");
-                Data d = new Data (divisions);
-                allLines.add(d);
-                int secretNumber = allLines.get(allLines.size() - 1).retrieveSecretNumber();
-                if (students.size() > 0) {
-                    for (int i = 0; i < students.size(); i++) {
-                        if (secretNumber != students.get(i).returnSecretNum()) {
-                            Student s = new Student(secretNumber);
-                            students.add(s);
-                            break;
+                char firstChar = divisions[0].charAt(0);
+                int charInt = (int)firstChar;
+                if (charInt >= 48 && charInt <= 57) {
+                    Data d = new Data (divisions);
+                    allLines.add(d);
+                    int secretNumber = allLines.get(allLines.size() - 1).retrieveSecretNumber();
+                    if (students.size() > 0) {
+                        for (int i = 0; i < students.size(); i++) {
+                            if (secretNumber != students.get(i).returnSecretNum()) {
+                                Student s = new Student(secretNumber);
+                                students.add(s);
+                                break;
+                            }
                         }
+                    } else {
+                        Student s = new Student(secretNumber);
+                        students.add(s);
                     }
-                } else {
-                    Student s = new Student(secretNumber);
-                    students.add(s);
                 }
-
             }
             index++;
         }
