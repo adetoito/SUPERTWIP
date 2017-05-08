@@ -14,6 +14,8 @@ public class Student {
 
     public int returnSecretNum () { return secNum; }
 
+    public double returnPts () { return points; }
+
     public void addPts (double pts) { points += pts; }
 
     public void subtractPts (double pts) { points -= pts; }
