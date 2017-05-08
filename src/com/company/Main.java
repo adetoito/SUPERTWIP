@@ -19,7 +19,6 @@ public class Main {
                 int charInt = (int)firstChar;
                 if (charInt >= 48 && charInt <= 57) {
                     Data d = new Data (divisions);
-                    allLines.add(d);
                     int secretNumber = allLines.get(allLines.size() - 1).retrieveSecretNumber();
                     if (students.size() > 0) {
                         for (int i = 0; i < students.size(); i++) {
@@ -33,6 +32,8 @@ public class Main {
                         Student s = new Student(secretNumber);
                         students.add(s);
                     }
+                    d.calculateStudentPts(students, secretNumber);
+                    allLines.add(d);
                 }
             }
             index++;
