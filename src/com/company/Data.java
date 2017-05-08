@@ -36,7 +36,7 @@ public class Data {
 
     public int retrieveSecretNumber () { return Integer.parseInt(divisions.get(0)); }
 
-    /**
+    /*
     private void divideDataFurther () {
         for (int i = 0; i < divisions.size(); i++) {
             String d = divisions.get(i);
