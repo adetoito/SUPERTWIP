@@ -122,7 +122,7 @@ public class Data {
             Student temp = students.get(i);
             int sn = temp.returnSecretNum();
             if (sn == secNum) {
-                temp.addPts(gainedPts);
+                temp.addPts(gainedQ1Pts, 1); temp.addPts(gainedQ2Pts, 2);
                 temp.subtractPts(syntaxPts);
             }
         }
