@@ -13,17 +13,24 @@ public class Data {
      *      deducted because of syntax errors.
      * identifyAdditionSections() finds all of the portions of the line that account for the addition of points.
      * calculateStudentPts() analyzes the data and calculates the correct point amount to the corresponding student.
+     *
+     * TO DO:
+     * Differentiate between syntax points for Q1 and Q2.
      */
 
     private ArrayList <String> divisions = new ArrayList<>();
     private ArrayList syntaxErrors = new ArrayList();
     private ArrayList additionDivisions = new ArrayList();
 
-    private double gainedPts;
+    private double gainedQ1Pts;
+    private double gainedQ2Pts;
     private double syntaxPts;
 
+    private int indexOfFirstSyntaxes;
+
     public Data (String [] d) {
-        syntaxPts = 0;
+        syntaxPts = 0; gainedQ1Pts = 0; gainedQ2Pts = 0;
+        indexOfFirstSyntaxes = -1;
         for (String data : d) {
             if (!data.isEmpty()) {
                 divisions.add(data);
@@ -58,6 +65,9 @@ public class Data {
             String info = divisions.get(i);
             if (info.length() == 1) {
                 syntaxErrors.add(true);
+                if (indexOfFirstSyntaxes == -1) {
+                    indexOfFirstSyntaxes = i;
+                }
             } else {
                 syntaxErrors.add(false);
             }
@@ -92,13 +102,17 @@ public class Data {
     private void identifyAddedPts () {
         for (int i = 1; i < divisions.size(); i++) {
             if ((boolean)additionDivisions.get(i)) {
-                String line = divisions.get(i);
-                while (line.contains("+")) {
-                    String value = line.substring(line.indexOf("+") + 2, line.substring(line.indexOf("+") + 2).indexOf(" "));
-                    double addedPts = Double.parseDouble(value);
-                    gainedPts += addedPts;
-                    line = line.substring(value.length());
-                }
+                    String line = divisions.get(i);
+                    while (line.contains("+")) {
+                        String value = line.substring(line.indexOf("+") + 2, line.substring(line.indexOf("+") + 2).indexOf(" "));
+                        double addedPts = Double.parseDouble(value);
+                        if (i < indexOfFirstSyntaxes) {
+                            gainedQ1Pts += addedPts;
+                        } else {
+                            gainedQ2Pts += addedPts;
+                        }
+                        line = line.substring(value.length());
+                    }
             }
         }
     }
