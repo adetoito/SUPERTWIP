@@ -5,6 +5,15 @@ import java.io.*;
 
 public class Student {
 
+    /** NOTES:
+     * Student objects hold the information of each student who took the benchmark.
+     * All "return" methods are self-explanatory.
+     * addPts() adds points to its corresponding questions, based on parameters.
+     * subtractPts() is similar to addPts(), except it subtracts instead of adding.
+     * addAllNecessaryInformation() uses all of the Student object's information and overwrites its
+     *      corresponding line with it.
+     */
+
     private String name;
     private int secNum;
 
@@ -46,6 +55,14 @@ public class Student {
         } else {
             Q2Points -= pts;
         }
+    }
+
+    public void addAllNecessaryInformation () throws IOException {
+        FileWriter fw = new FileWriter(new File("src/com/company/names.txt"));
+        PrintWriter pw = new PrintWriter(fw);
+
+        pw.close();
+        fw.close();
     }
 
 }
