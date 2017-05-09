@@ -7,15 +7,12 @@ public class Data {
     /** NOTES:
      * Data objects hold the information of one line.
      * retrieveSecretNumber() is self-explanatory.
-     * ------ MAY NOT BE USED ------ divideDataFurther() divides portions of a line into smaller portions.
      * identifySyntaxErrors() finds all of the portions of the line that account for the number of syntax errors.
      * identifySyntaxPts() is a complementary method to the method described above; it calculates how many points are
-     *      deducted because of syntax errors.
+     *      deducted because of syntax errors, taking into account which question it is assigned to.
      * identifyAdditionSections() finds all of the portions of the line that account for the addition of points.
-     * calculateStudentPts() analyzes the data and calculates the correct point amount to the corresponding student.
-     *
-     * TO DO:
-     * Differentiate between syntax points for Q1 and Q2.
+     * calculateStudentPts() analyzes the data and calculates the correct point amount to the corresponding student and its
+     *      corresponding questions.
      */
 
     private ArrayList <String> divisions = new ArrayList<>();
@@ -24,12 +21,15 @@ public class Data {
 
     private double gainedQ1Pts;
     private double gainedQ2Pts;
-    private double syntaxPts;
+
+    private double Q1SyntaxPts;
+    private double Q2SyntaxPts;
 
     private int indexOfFirstSyntaxes;
 
     public Data (String [] d) {
-        syntaxPts = 0; gainedQ1Pts = 0; gainedQ2Pts = 0;
+        Q1SyntaxPts = 0; Q2SyntaxPts = 0;
+        gainedQ1Pts = 0; gainedQ2Pts = 0;
         indexOfFirstSyntaxes = -1;
         for (String data : d) {
             if (!data.isEmpty()) {
@@ -79,8 +79,14 @@ public class Data {
         for (int i = 1; i < divisions.size(); i++) {
             if ((boolean)syntaxErrors.get(i)) {
                 int amtErrors = Integer.parseInt(divisions.get(i));
-                for (int j = 0; j < amtErrors; j++) {
-                    syntaxPts += 0.25;
+                if (i == indexOfFirstSyntaxes) {
+                    for (int j = 0; j < amtErrors; j++) {
+                        Q1SyntaxPts += 0.25;
+                    }
+                } else {
+                    for (int j = 0; j < amtErrors; j++) {
+                        Q2SyntaxPts += 0.25;
+                    }
                 }
             }
         }
@@ -123,7 +129,7 @@ public class Data {
             int sn = temp.returnSecretNum();
             if (sn == secNum) {
                 temp.addPts(gainedQ1Pts, 1); temp.addPts(gainedQ2Pts, 2);
-                temp.subtractPts(syntaxPts);
+                temp.subtractPts(Q1SyntaxPts, 1); temp.subtractPts(Q2SyntaxPts, 2);
             }
         }
     }
