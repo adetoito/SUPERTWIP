@@ -58,11 +58,9 @@ public class Student {
     }
 
     public void addAllNecessaryInformation () throws IOException {
-        FileWriter fw = new FileWriter(new File("src/com/company/names.txt"));
-        PrintWriter pw = new PrintWriter(fw);
-
-        pw.close();
-        fw.close();
+        BufferedReader fileReader = new BufferedReader(new FileReader("src/com/company/names.txt"));
+        String line;
+        int index = 0;
     }
 
 }
