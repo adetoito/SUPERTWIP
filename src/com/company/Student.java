@@ -14,7 +14,7 @@ public class Student {
      *      corresponding line with it.
      */
 
-    private String name;
+    //private String name;
     private int secNum;
 
     private double Q1Points;
@@ -28,7 +28,7 @@ public class Student {
             if (index != 0) {
                 String line = fileReader.nextLine();
                 if (secNum == index) {
-                    name = line.substring(0, line.indexOf("\t"));
+                    //name = line.substring(0, line.indexOf("\t"));
                     break;
                 }
             }

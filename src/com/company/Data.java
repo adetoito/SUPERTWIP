@@ -91,17 +91,26 @@ public class Data {
     private void identifyAddedPts () {
         for (int i = 1; i < divisions.size(); i++) {
             if ((boolean)additionDivisions.get(i)) {
-                    String line = divisions.get(i);
-                    while (line.contains("+")) {
-                        String value = line.substring(line.indexOf("+") + 2, line.substring(line.indexOf("+") + 2).indexOf(" "));
-                        double addedPts = Double.parseDouble(value);
-                        if (i < indexOfFirstSyntaxes) {
-                            gainedQ1Pts += addedPts;
-                        } else {
-                            gainedQ2Pts += addedPts;
+                String line = divisions.get(i);
+                while (line.contains("+")) {
+                    System.out.println("kys" + retrieveSecretNumber());
+                    String lineAfterPlus = line.substring(line.indexOf("+") + 2);
+                    int indexOfSpace = lineAfterPlus.indexOf(" ");
+                    int amtCut = indexOfSpace;
+                    if (lineAfterPlus.length() < 3) {
+                        String value = lineAfterPlus.substring(0, indexOfSpace);
+                        if (!value.equals("w2") && !value.equals("w1,")) {
+                            double addedPts = Double.parseDouble(value);
+                            if (i < indexOfFirstSyntaxes) {
+                                gainedQ1Pts += addedPts;
+                            } else {
+                                gainedQ2Pts += addedPts;
+                            }
                         }
-                        line = line.substring(value.length());
+                        amtCut = value.length();
                     }
+                    line = line.substring(amtCut);
+                }
             }
         }
     }

@@ -20,7 +20,8 @@ public class Main {
                 int charInt = (int)firstChar;
                 if (charInt >= 48 && charInt <= 57) {
                     Data d = new Data (divisions);
-                    int secretNumber = allLines.get(allLines.size() - 1).retrieveSecretNumber();
+                    //int secretNumber = allLines.get(allLines.size() - 1).retrieveSecretNumber();
+                    int secretNumber = Integer.parseInt(divisions[0]);
                     if (students.size() > 0) {
                         for (int i = 0; i < students.size(); i++) {
                             if (secretNumber != students.get(i).returnSecretNum()) {
