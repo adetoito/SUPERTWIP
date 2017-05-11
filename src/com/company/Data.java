@@ -92,13 +92,43 @@ public class Data {
         for (int i = 1; i < divisions.size(); i++) {
             if ((boolean)additionDivisions.get(i)) {
                 String line = divisions.get(i);
-                while (line.contains("+")) {
-                    System.out.println("kys" + retrieveSecretNumber());
+                while (line.contains("+ .\\d") || line.contains("+ \\d")) {
+                    System.out.println("Secret Number" + retrieveSecretNumber() + " | Division " + i);
+                    String editedLine;
+                    int amtCut;
+                    /*
                     String lineAfterPlus = line.substring(line.indexOf("+") + 2);
                     int indexOfSpace = lineAfterPlus.indexOf(" ");
                     int amtCut = indexOfSpace;
                     if (lineAfterPlus.length() < 3) {
                         String value = lineAfterPlus.substring(0, indexOfSpace);
+                        if (!value.equals("w2") && !value.equals("w1,")) {
+                            double addedPts = Double.parseDouble(value);
+                            if (i < indexOfFirstSyntaxes) {
+                                gainedQ1Pts += addedPts;
+                            } else {
+                                gainedQ2Pts += addedPts;
+                            }
+                        }
+                        amtCut = value.length();
+                    }
+                    line = line.substring(amtCut);
+                    */
+                    if (line.contains("+ .\\d")) {
+                        editedLine = line.substring(line.indexOf("+ .\\d") + 2);
+                        String value = editedLine.substring(0, editedLine.indexOf(" "));
+                        if (!value.equals("w2") && !value.equals("w1,")) {
+                            double addedPts = Double.parseDouble(value);
+                            if (i < indexOfFirstSyntaxes) {
+                                gainedQ1Pts += addedPts;
+                            } else {
+                                gainedQ2Pts += addedPts;
+                            }
+                        }
+                        amtCut = value.length();
+                    } else {
+                        editedLine = line.substring(line.indexOf("+ \\d") + 2);
+                        String value = editedLine.substring(0, editedLine.indexOf(" "));
                         if (!value.equals("w2") && !value.equals("w1,")) {
                             double addedPts = Double.parseDouble(value);
                             if (i < indexOfFirstSyntaxes) {

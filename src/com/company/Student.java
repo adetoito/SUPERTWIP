@@ -22,11 +22,11 @@ public class Student {
 
     public Student (int sn) throws IOException {
         secNum = sn;
-        Scanner fileReader = new Scanner(new File("src/com/company/names.txt"));
+        Scanner fileReader = new Scanner(new File("names.txt"));
         int index = 0;
         while (fileReader.hasNextLine()) {
             if (index != 0) {
-                String line = fileReader.nextLine();
+                //String line = fileReader.nextLine();
                 if (secNum == index) {
                     //name = line.substring(0, line.indexOf("\t"));
                     break;
