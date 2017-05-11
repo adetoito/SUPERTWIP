@@ -15,29 +15,27 @@ public class Main {
         while (fileReader.hasNextLine()) {
             if (index != 0) {
                 String line = fileReader.nextLine();
-                if (!line.isEmpty()) {
-                    String [] divisions = line.split("\t");
-                    char firstChar = divisions[0].charAt(0);
-                    int charInt = (int)firstChar;
-                    if (charInt >= 48 && charInt <= 57) {
-                        Data d = new Data (divisions);
-                        //int secretNumber = allLines.get(allLines.size() - 1).retrieveSecretNumber();
-                        int secretNumber = Integer.parseInt(divisions[0]);
-                        if (students.size() > 0) {
-                            for (int i = 0; i < students.size(); i++) {
-                                if (secretNumber != students.get(i).returnSecretNum()) {
-                                    Student s = new Student(secretNumber);
-                                    students.add(s);
-                                    break;
-                                }
+                String [] divisions = line.split("\t");
+                char firstChar = divisions[0].charAt(0);
+                int charInt = (int)firstChar;
+                if (charInt >= 48 && charInt <= 57) {
+                    Data d = new Data (divisions);
+                    //int secretNumber = allLines.get(allLines.size() - 1).retrieveSecretNumber();
+                    int secretNumber = Integer.parseInt(divisions[0]);
+                    if (students.size() > 0) {
+                        for (int i = 0; i < students.size(); i++) {
+                            if (secretNumber != students.get(i).returnSecretNum()) {
+                                Student s = new Student(secretNumber);
+                                students.add(s);
+                                break;
                             }
-                        } else {
-                            Student s = new Student(secretNumber);
-                            students.add(s);
                         }
-                        d.calculateStudentPts(students, secretNumber);
-                        allLines.add(d);
+                    } else {
+                        Student s = new Student(secretNumber);
+                        students.add(s);
                     }
+                    d.calculateStudentPts(students, secretNumber);
+                    allLines.add(d);
                 }
             }
             index++;
@@ -49,9 +47,8 @@ public class Main {
         while (namesReader.hasNextLine()) {
             Student temp = students.get(index);
             String line = namesReader.nextLine();
-            String [] divisions = line.split("\t");
-            String name = divisions[0];
-            String secNum = divisions[1];
+            String name = line.substring(0, line.indexOf(" "));
+            String secNum = line.substring(line.indexOf(" ") + 1);
             System.out.println(name + "\t" + secNum + "\t" + temp.returnAvgGrade() + "\t" + temp.returnQ1Grade() + "\t" + temp.returnQ2Grade());
         }
     }

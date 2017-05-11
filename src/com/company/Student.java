@@ -25,12 +25,8 @@ public class Student {
         Scanner fileReader = new Scanner(new File("names.txt"));
         int index = 0;
         while (fileReader.hasNextLine()) {
-            if (index != 0) {
-                //String line = fileReader.nextLine();
-                if (secNum == index) {
-                    //name = line.substring(0, line.indexOf("\t"));
-                    break;
-                }
+            if (index != 0 && secNum == index) {
+                break;
             }
             index++;
         }
