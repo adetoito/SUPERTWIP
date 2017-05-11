@@ -1,29 +1,28 @@
-Name    SecretNumber    Avg.Score   Q1Score    Q2 Score
-Derek S   1
-Charles E   2
-Martin V   3
-Alex R   4
-Emma A   5
-Max K   6
-Katie R   7
-Brandon J   8
-Tina P   9
-Tommy J   10
-Fernando Q   11
-Amy W   12
-Dylan L   13
-Sebastian D   14
-Jacob O   15
-Lucia B   16
-Hailey W   17
-Dawson F   18
-Henry A   19
-Adam S   20
-Felicia E   21
-Mark F   22
-Bob C   23
-Jack M   24
-Shawn I   25
-Lorenzo D   26
-Pedro G   27
-Justin X   28
+arg 1
+sig 2
+VN  3
+stalker 4
+cassini 5
+valencia    6
+thatmyersdude 7
+graceful    8
+dylanaims   9
+javadotstar 10
+jquinn  11
+katlinwang  12
+maximuslin  13
+dafunk  14
+tommymemetangelo    15
+tommysaharadesert   16
+asejgfsdg   17
+sdgfs   18
+df  19
+is    20
+there  21
+an  22
+anime    23
+character   24
+stronger 25
+than   26
+daniel   27
+pennebacker 28

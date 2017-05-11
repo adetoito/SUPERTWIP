@@ -7,7 +7,7 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         Scanner fileReader = new Scanner(new File("src/com/company/rawDataU6.txt"));
-        Scanner dataReader = new Scanner(new File("src/com/company/names.txt"));
+        Scanner namesReader = new Scanner(new File("src/com/company/names.txt"));
         int index = 0;
         ArrayList<Student> students = new ArrayList();
         ArrayList<Data> allLines = new ArrayList();
@@ -25,14 +25,12 @@ public class Main {
                         for (int i = 0; i < students.size(); i++) {
                             if (secretNumber != students.get(i).returnSecretNum()) {
                                 Student s = new Student(secretNumber);
-                                s.addAllNecessaryInformation();
                                 students.add(s);
                                 break;
                             }
                         }
                     } else {
                         Student s = new Student(secretNumber);
-                        s.addAllNecessaryInformation();
                         students.add(s);
                     }
                     d.calculateStudentPts(students, secretNumber);
@@ -42,16 +40,40 @@ public class Main {
             index++;
         }
 
-        index = 0;
+        //addAllNecessaryInformation(students);
+        index = 1;
+        System.out.println("Name \t Secret Number \t Avg Grade \t Q1 Grade \t Q2 Grade");
 
-        while (dataReader.hasNextLine()) {
-            if (index == 0) {
-
-            } else {
-
-            }
-            index++;
+        while (namesReader.hasNextLine()) {
+            Student temp = students.get(index);
+            String line = namesReader.nextLine();
+            String name = line.substring(0, line.indexOf("\t"));
+            String secNum = line.substring(line.indexOf("\t"));
+            System.out.println(name + "\t" + secNum + "\t" + temp.returnAvgGrade() + "\t" + temp.returnQ1Grade() + "\t" + temp.returnQ2Grade());
         }
     }
 
+    /*
+    public static void addAllNecessaryInformation (ArrayList<Student> students) throws IOException {
+        BufferedReader fileReader = new BufferedReader(new FileReader("src/com/company/names.txt"));
+        StringBuffer sb = new StringBuffer();
+        for (int i = 1; i <= students.size(); i++) {
+            String line;
+            Student temp = students.get(i);
+            for (int j = 0; j < 5; j++) {
+                if (j == 0) {
+                    sb.append(temp.)
+                } else if (j == 1) {
+
+                } else if (j == 2) {
+
+                } else if (j == 3) {
+
+                } else {
+
+                }
+            }
+        }
+    }
+    */
 }

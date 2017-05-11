@@ -36,28 +36,11 @@ public class Data {
                 divisions.add(data);
             }
         }
-        //divideDataFurther();
         identifySyntaxErrors();
         identifyAdditionSections();
     }
 
     public int retrieveSecretNumber () { return Integer.parseInt(divisions.get(0)); }
-
-    /*
-    private void divideDataFurther () {
-        for (int i = 0; i < divisions.size(); i++) {
-            String d = divisions.get(i);
-            if (d.contains(", +")) {
-                String [] furtherDivisions = d.split(", +");
-                for (int j = furtherDivisions.length - 1; j >= 0; j--) {
-                    divisions.add(i, furtherDivisions[j]);
-                }
-                divisions.remove(i + furtherDivisions.length - 1);
-            }
-        }
-
-    }
-    */
 
     private void identifySyntaxErrors () {
         syntaxErrors.add(false);

@@ -38,8 +38,9 @@ public class Student {
 
     public int returnSecretNum () { return secNum; }
 
-    public double returnQ1Pts () { return Q1Points; }
-    public double returnQ2Pts () { return Q2Points; }
+    public double returnQ1Grade () { return Q1Points / 9; }
+    public double returnQ2Grade () { return Q2Points / 9; }
+    public double returnAvgGrade () { return (returnQ1Grade() + returnQ2Grade()) / 2; }
 
     public void addPts (double pts, int qn) {
         if (qn == 1) {
@@ -55,12 +56,6 @@ public class Student {
         } else {
             Q2Points -= pts;
         }
-    }
-
-    public void addAllNecessaryInformation () throws IOException {
-        BufferedReader fileReader = new BufferedReader(new FileReader("src/com/company/names.txt"));
-        String line;
-        int index = 0;
     }
 
 }
