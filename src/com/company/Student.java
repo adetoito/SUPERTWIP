@@ -3,7 +3,7 @@ package com.company;
 import java.util.*;
 import java.io.*;
 
-public class Student {
+public class Student implements Comparable {
 
     /** NOTES:
      * Student objects hold the information of each student who took the benchmark.
@@ -14,11 +14,11 @@ public class Student {
      *      corresponding line with it.
      */
 
-    //private String name;
-    private int secNum;
+    public String name;
+    public int secNum;
 
-    private double Q1Points;
-    private double Q2Points;
+    public double Q1Points;
+    public double Q2Points;
 
     public Student (int sn) throws IOException {
         secNum = sn;
@@ -32,11 +32,9 @@ public class Student {
         }
     }
 
-    public int returnSecretNum () { return secNum; }
-
-    public double returnQ1Grade () { return Q1Points / 9; }
-    public double returnQ2Grade () { return Q2Points / 9; }
-    public double returnAvgGrade () { return (returnQ1Grade() + returnQ2Grade()) / 2; }
+    public double returnQ1Grade () { return (double)Math.round((Q1Points * 100) / 9); }
+    public double returnQ2Grade () { return (double)Math.round((Q2Points * 100) / 9); }
+    public double returnAvgGrade () { return (returnQ1Grade() + returnQ2Grade()) / 2.00; }
 
     public void addPts (double pts, int qn) {
         if (qn == 1) {
@@ -52,6 +50,15 @@ public class Student {
         } else {
             Q2Points -= pts;
         }
+    }
+
+    public void setName (String n) {
+        name = n;
+    }
+
+    public int compareTo (Object o) {
+        Student s = (Student)o;
+        return this.name.compareTo(s.name);
     }
 
 }

@@ -63,13 +63,9 @@ public class Data {
             if ((boolean)syntaxErrors.get(i)) {
                 int amtErrors = Integer.parseInt(divisions.get(i));
                 if (i == indexOfFirstSyntaxes) {
-                    for (int j = 0; j < amtErrors; j++) {
-                        Q1SyntaxPts += 0.25;
-                    }
+                    Q1SyntaxPts = amtErrors * 0.25;
                 } else {
-                    for (int j = 0; j < amtErrors; j++) {
-                        Q2SyntaxPts += 0.25;
-                    }
+                    Q2SyntaxPts = amtErrors * 0.25;
                 }
             }
         }
@@ -89,58 +85,80 @@ public class Data {
     }
 
     private void identifyAddedPts () {
+        //System.out.println("Now I identify places with added points");
         for (int i = 1; i < divisions.size(); i++) {
             if ((boolean)additionDivisions.get(i)) {
                 String line = divisions.get(i);
-                while (line.contains("+ .\\d") || line.contains("+ \\d")) {
-                    System.out.println("Secret Number" + retrieveSecretNumber() + " | Division " + i);
+                while (line.contains("+ .5") || line.contains("+ 1")) {
                     String editedLine;
+                    //System.out.println(line);
+                    //System.out.println(".5: " + line.indexOf("+ .5") + " | 1: " + line.indexOf("+ 1"));
                     int amtCut;
-                    if (line.contains("+ .\\d")) {
-                        editedLine = line.substring(line.indexOf("+ .\\d") + 2);
+                    if (line.contains("+ .5")) {
+                        editedLine = line.substring(line.indexOf("+ .5") + 2);
+                        int nextHalf = editedLine.indexOf("+ .5");
+                        int nextWhole = editedLine.indexOf("+ 1");
+                        //System.out.println("NEW LINE: " + editedLine);
                         String value = editedLine.substring(0, editedLine.indexOf(" "));
+                        //System.out.println("INDEX TIL NEXT HALF: " + nextHalf);
+                        //System.out.println("INDEX TIL NEXT WHOLE: " + nextWhole);
                         if (!value.equals("w2") && !value.equals("w1,")) {
                             double addedPts = Double.parseDouble(value);
-
-                            //
-                            System.out.println(addedPts);
-                            //
-
                             if (i < indexOfFirstSyntaxes) {
                                 gainedQ1Pts += addedPts;
                             } else {
                                 gainedQ2Pts += addedPts;
                             }
                         }
-                        amtCut = value.length();
+                        //amtCut = Math.abs((value.length() + 3) - line.length());
+                        //amtCut = line.length() - (value.length() + 3);
+                        if (nextHalf > nextWhole || nextHalf == -1) {
+                            amtCut = editedLine.length() - nextWhole;
+                        } else if (nextHalf == -1 && nextWhole == -1) {
+                            break;
+                        } else {
+                            amtCut = editedLine.length() - nextHalf;
+                        }
                     } else {
-                        editedLine = line.substring(line.indexOf("+ \\d") + 2);
+                        editedLine = line.substring(line.indexOf("+ 1") + 2);
+                        int nextHalf = editedLine.indexOf("+ .5");
+                        int nextWhole = editedLine.indexOf("+ 1");
+                        //System.out.println("NEW LINE: " + editedLine);
                         String value = editedLine.substring(0, editedLine.indexOf(" "));
+                        //System.out.println("INDEX TIL NEXT HALF: " + nextHalf);
+                        //System.out.println("INDEX TIL NEXT WHOLE: " + nextWhole);
                         if (!value.equals("w2") && !value.equals("w1,")) {
                             double addedPts = Double.parseDouble(value);
-
-                            //
-                            System.out.println(addedPts);
-                            //
-
                             if (i < indexOfFirstSyntaxes) {
                                 gainedQ1Pts += addedPts;
                             } else {
                                 gainedQ2Pts += addedPts;
                             }
                         }
-                        amtCut = value.length();
+                        //amtCut = Math.abs((value.length() + 2) - line.length());
+                        //amtCut = line.length() - (value.length() + 2);
+                        if (nextHalf > nextWhole || nextHalf == -1) {
+                            amtCut = editedLine.length() - nextWhole;
+                        } else if (nextHalf == -1 && nextWhole == -1) {
+                            break;
+                        } else {
+                            amtCut = editedLine.length() - nextHalf;
+                        }
                     }
                     line = line.substring(amtCut);
+                    //System.out.println("LINE BEFORE CHANGE: " + line);
+                    //System.out.println("\n");
                 }
             }
         }
+        //System.out.println("\nFINAL Q1 PTS for " + retrieveSecretNumber() + ": " + gainedQ1Pts);
+        //System.out.println("FINAL Q2 PTS for " + + retrieveSecretNumber() + ": " + gainedQ2Pts);
     }
 
     public void calculateStudentPts (ArrayList<Student> students, int secNum) {
         for (int i = 0; i < students.size(); i++) {
             Student temp = students.get(i);
-            int sn = temp.returnSecretNum();
+            int sn = temp.secNum;
             if (sn == secNum) {
                 temp.addPts(gainedQ1Pts, 1); temp.addPts(gainedQ2Pts, 2);
                 temp.subtractPts(Q1SyntaxPts, 1); temp.subtractPts(Q2SyntaxPts, 2);
