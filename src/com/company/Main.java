@@ -50,45 +50,25 @@ public class Main {
             }
         }
         ArrayList<Student> compactStudents = new ArrayList();
-        for (int i = 0; i < students.size() / 2; i++) {
+        compactStudents.add(students.get(0));
+        for (int i = 1; i < students.size(); i++) {
             Student one = students.get(i);
             Student two = students.get(i + 1);
             Student newStudent = new Student(one.secNum);
+            newStudent.setName(one.name);
             newStudent.Q1Points = calculateAverage(one.Q1Points, two.Q1Points);
             newStudent.Q2Points = calculateAverage(one.Q2Points, two.Q2Points);
             i++;
             compactStudents.add(newStudent);
         }
-        /*
-        int prevIndex = 0;
-        for (int i = 0; i < students.size(); i++) {
-            Student temp = students.get(i);
-            if (compactStudents.size() == 0) {
-                compactStudents.add(temp);
-            } else {
-                for (int j = 0; j < compactStudents.size(); j++) {
-                    Student stolen = compactStudents.get(j);
-                    if (stolen.secNum == temp.secNum) {
-                        Student sAtPI = compactStudents.get(prevIndex);
-                        sAtPI.Q1Points = calculateAverage(sAtPI.Q1Points, stolen.Q1Points);
-                        sAtPI.Q2Points = calculateAverage(sAtPI.Q2Points, stolen.Q2Points);
-                        compactStudents.add(sAtPI);
-                        prevIndex = j;
-                        break;
-                    }
-                }
-            }
-        }
-        */
-        Collections.sort(students);
+        Collections.sort(compactStudents);
         System.out.println("Name \t Secret Number \t Avg Grade \t Q1 Grade \t Q2 Grade");
-        for (int i = 0; i < students.size(); i++) {
-            Student temp = students.get(i);
+        for (int i = 0; i < compactStudents.size(); i++) {
+            Student temp = compactStudents.get(i);
             //String line = namesReader.nextLine();
             //String name = line.substring(0, line.indexOf(" "));
             //String secNum = line.substring(line.indexOf(" ") + 1);
             System.out.println(temp.name + "\t" + temp.secNum + "\t" + temp.returnAvgGrade() + "% \t" + temp.Q1Points + "\t" + temp.Q2Points);
-            i++;
         }
     }
 
