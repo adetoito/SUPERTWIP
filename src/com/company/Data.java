@@ -40,8 +40,6 @@ public class Data {
         identifyAdditionSections();
     }
 
-    public int retrieveSecretNumber () { return Integer.parseInt(divisions.get(0)); }
-
     private void identifySyntaxErrors () {
         syntaxErrors.add(false);
         for (int i = 1; i < divisions.size(); i++) {
@@ -85,23 +83,17 @@ public class Data {
     }
 
     private void identifyAddedPts () {
-        //System.out.println("Now I identify places with added points");
         for (int i = 1; i < divisions.size(); i++) {
             if ((boolean)additionDivisions.get(i)) {
                 String line = divisions.get(i);
                 while (line.contains("+ .5") || line.contains("+ 1")) {
                     String editedLine;
-                    //System.out.println(line);
-                    //System.out.println(".5: " + line.indexOf("+ .5") + " | 1: " + line.indexOf("+ 1"));
                     int amtCut;
                     if (line.contains("+ .5")) {
                         editedLine = line.substring(line.indexOf("+ .5") + 2);
                         int nextHalf = editedLine.indexOf("+ .5");
                         int nextWhole = editedLine.indexOf("+ 1");
-                        //System.out.println("NEW LINE: " + editedLine);
                         String value = editedLine.substring(0, editedLine.indexOf(" "));
-                        //System.out.println("INDEX TIL NEXT HALF: " + nextHalf);
-                        //System.out.println("INDEX TIL NEXT WHOLE: " + nextWhole);
                         if (!value.equals("w2") && !value.equals("w1,")) {
                             double addedPts = Double.parseDouble(value);
                             if (i < indexOfFirstSyntaxes) {
@@ -110,8 +102,6 @@ public class Data {
                                 gainedQ2Pts += addedPts;
                             }
                         }
-                        //amtCut = Math.abs((value.length() + 3) - line.length());
-                        //amtCut = line.length() - (value.length() + 3);
                         if (nextHalf > nextWhole || nextHalf == -1) {
                             amtCut = editedLine.length() - nextWhole;
                         } else if (nextHalf == -1 && nextWhole == -1) {
@@ -123,10 +113,7 @@ public class Data {
                         editedLine = line.substring(line.indexOf("+ 1") + 2);
                         int nextHalf = editedLine.indexOf("+ .5");
                         int nextWhole = editedLine.indexOf("+ 1");
-                        //System.out.println("NEW LINE: " + editedLine);
                         String value = editedLine.substring(0, editedLine.indexOf(" "));
-                        //System.out.println("INDEX TIL NEXT HALF: " + nextHalf);
-                        //System.out.println("INDEX TIL NEXT WHOLE: " + nextWhole);
                         if (!value.equals("w2") && !value.equals("w1,")) {
                             double addedPts = Double.parseDouble(value);
                             if (i < indexOfFirstSyntaxes) {
@@ -135,8 +122,6 @@ public class Data {
                                 gainedQ2Pts += addedPts;
                             }
                         }
-                        //amtCut = Math.abs((value.length() + 2) - line.length());
-                        //amtCut = line.length() - (value.length() + 2);
                         if (nextHalf > nextWhole || nextHalf == -1) {
                             amtCut = editedLine.length() - nextWhole;
                         } else if (nextHalf == -1 && nextWhole == -1) {
@@ -146,13 +131,9 @@ public class Data {
                         }
                     }
                     line = line.substring(amtCut);
-                    //System.out.println("LINE BEFORE CHANGE: " + line);
-                    //System.out.println("\n");
                 }
             }
         }
-        //System.out.println("\nFINAL Q1 PTS for " + retrieveSecretNumber() + ": " + gainedQ1Pts);
-        //System.out.println("FINAL Q2 PTS for " + + retrieveSecretNumber() + ": " + gainedQ2Pts);
     }
 
     public void calculateStudentPts (ArrayList<Student> students, int secNum) {

@@ -65,10 +65,7 @@ public class Main {
         System.out.println("Name \t Secret Number \t Avg Grade \t Q1 Grade \t Q2 Grade");
         for (int i = 0; i < compactStudents.size(); i++) {
             Student temp = compactStudents.get(i);
-            //String line = namesReader.nextLine();
-            //String name = line.substring(0, line.indexOf(" "));
-            //String secNum = line.substring(line.indexOf(" ") + 1);
-            System.out.println(temp.name + "\t" + temp.secNum + "\t" + temp.returnAvgGrade() + "% \t" + temp.Q1Points + "\t" + temp.Q2Points);
+            System.out.println(temp.name + "        " + temp.secNum + "       " + temp.returnAvgGrade() + "%        " + temp.Q1Points + "       " + temp.Q2Points);
         }
     }
 
